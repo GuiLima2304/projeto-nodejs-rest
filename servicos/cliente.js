@@ -13,7 +13,7 @@ app.get('/:cpf', (req, res) => {
         cpf,
         nome: faker.name.findName(),
         dataDeNascimento: faker.date.past()
-    }),
+    })
 })
 
 app.listen(8082, () => console.log('Api rodando'))
