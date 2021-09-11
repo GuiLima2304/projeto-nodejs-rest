@@ -2,7 +2,10 @@ const Atendimento = require('../models/atendimentos');
 
 module.exports = app => {
     app.get('/atendimentos', (req, res) => {
-      Atendimento.lista(res);
+      Atendimento.lista()
+        //por default ja eh status 200
+        .then(resultados => { res.json(resultados) })
+        .catch(error => { res.status(400).json(error) })
     });
 
     app.get('/atendimentos/:id', (req, res) => {

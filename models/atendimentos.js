@@ -8,11 +8,13 @@ class Atendimentos {
     constructor() {
 
         this.dataEhValida = ({data, dataCriacao}) => moment(data).isSameOrAfter(dataCriacao);
+        
         this.clienteEhValido = (tamanho) => tamanho >= 5;
+
         this.valida = (parametros) => {
             this.validacoes.filter(campo => {
                 const { nome } = campo;
-                const parametro = parametro[nome];
+                const parametro = parametros[nome];
 
                 return !campo.valido(parametro)
             })
@@ -42,8 +44,7 @@ class Atendimentos {
             cliente: { tamanho: atendimento.cliente.length }
         }
 
-        const erros = this.valida(parametros);
-        const existemErros = erros.length;
+        const existemErros = this.valida(parametros);
         
         if(existemErros) {
             return new Promise((resolve, reject) => {
@@ -61,16 +62,8 @@ class Atendimentos {
         }
     }
 
-    lista(res) {
-        const sql = 'SELECT * FROM Atendimentos';
-
-        conexao.query(sql, (erro, resultados) => {
-            if(erro) {
-                res.status(400).json(erro)
-            } else {
-                res.status(200).json(resultados)
-            }
-        })
+    lista() {
+        return repositorio.lista()
     }
 
     buscaPorId(id, res) {

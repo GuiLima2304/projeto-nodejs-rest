@@ -5,7 +5,12 @@ class Atendimento {
         
         // ? significa que o que colocarmos aqui vai ser inserido nesta tabela
         const sql = 'INSERT INTO Atendimentos SET ?'
-        return query(sql, atendimento)
+        return query(sql, atendimento);
+    }
+
+    lista() {
+        const sql = 'SELECT * FROM Atendimentos';
+        return query(sql);
     }
 }
 
